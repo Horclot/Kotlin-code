@@ -21,12 +21,12 @@ class RegistrationActivity : AppCompatActivity() {
             startActivity(intent)
             finish() // Закрыть активити регистрации
         }
+    }
 
-
-        fun onTextClick(view: View)
-        {
-            Toast.makeText(this, "Текст был нажат", Toast.LENGTH_SHORT).show()
-        }
-
+    fun onTextClick(view: View)
+    {
+        val intent = Intent(this, MainActivity::class.java) //переход на окно навигации(ИСПРАВИТЬ!!!!)
+        startActivity(intent)
+        finish() // Закрыть активити регистрации
     }
 }

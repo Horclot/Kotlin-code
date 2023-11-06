@@ -69,15 +69,6 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="412dp"
-        android:layout_height="270dp"
-        android:layout_marginTop="-100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo1" />
-
     <Button
         android:id="@+id/buttonContinue"
         android:layout_width="600px"
