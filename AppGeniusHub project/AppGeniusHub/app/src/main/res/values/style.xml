@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Стиль для элементов меню в NavigationView -->
+    <style name="NavigationItemStyle">
+        <item name="android:iconTint">#0bcdff</item>
+    </style>
+</resources>
