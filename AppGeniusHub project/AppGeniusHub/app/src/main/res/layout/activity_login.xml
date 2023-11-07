@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#19202B"
-    tools:context=".RegistrationActivity">
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:fontFamily="@font/rubik"
-        android:text="Registration"
+        android:text="Login"
         android:textColor="@color/myBlue"
         android:textSize="75px"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,54 +21,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/registrationText"
+        android:id="@+id/loginText"
         android:layout_width="wrap_content"
+        android:clickable="true"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
         android:fontFamily="@font/rubik"
-        android:text="Login"
+        android:onClick="onTextClick1"
+        android:text="Registration"
         android:textColor="@color/myBlue"
         android:textSize="50px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
-        android:clickable="true"
-        android:onClick="onTextClick"/>
-
-    <EditText
-        android:id="@+id/RegName"
-        android:layout_width="800px"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:fontFamily="@font/rubik"
-        android:hint="Name"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textColor="@color/myBlue"
-        android:textColorHint="@color/teal_700"
-        android:textSize="55px"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/RegPassword"
-        android:layout_width="800px"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:ems="10"
-        android:fontFamily="@font/rubik"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="@color/myBlue"
-        android:textColorHint="@color/teal_700"
-        android:textSize="55px"
-        app:layout_constraintBottom_toTopOf="@+id/buttonContinue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonContinue" />
 
     <Button
         android:id="@+id/buttonContinue"
@@ -84,18 +50,35 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/RegEmail"
+        android:id="@+id/LoginEmail"
         android:layout_width="800px"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:maxLength="25"
         android:textColor="@color/myBlue"
         android:textColorHint="@color/teal_700"
         android:textSize="55px"
-        app:layout_constraintBottom_toTopOf="@+id/RegPassword"
+        app:layout_constraintBottom_toTopOf="@+id/LoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RegName" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/LoginPassword"
+        android:layout_width="800px"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:maxLength="25"
+        android:textColor="@color/myBlue"
+        android:textColorHint="@color/teal_700"
+        android:textSize="55px"
+        app:layout_constraintBottom_toTopOf="@+id/buttonContinue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
