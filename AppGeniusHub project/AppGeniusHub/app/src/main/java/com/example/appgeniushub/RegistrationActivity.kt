@@ -5,17 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.DelicateCoroutinesApi
+
 
 class RegistrationActivity : AppCompatActivity() {
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
         val button: Button = findViewById(R.id.buttonContinue)
-        val textButton: TextView = findViewById(R.id.registrationText)
         val name: EditText = findViewById(R.id.RegName)
         val email: EditText = findViewById(R.id.RegEmail)
         val password: EditText = findViewById(R.id.RegPassword)
@@ -34,7 +35,7 @@ class RegistrationActivity : AppCompatActivity() {
                         emailText.endsWith("@list.ru")
                         )
             ) {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
