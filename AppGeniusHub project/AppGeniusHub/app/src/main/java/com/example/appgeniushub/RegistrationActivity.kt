@@ -1,5 +1,6 @@
 package com.example.appgeniushub
 
+import DatabaseHelper
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -7,11 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@Suppress("NAME_SHADOWING")
 class RegistrationActivity : AppCompatActivity() {
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -35,9 +35,31 @@ class RegistrationActivity : AppCompatActivity() {
                         emailText.endsWith("@list.ru")
                         )
             ) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+
+                val dbHelper = DatabaseHelper(this)
+                val emailText = email.text.toString()
+                val nameText = name.text.toString()
+                val passwordText = password.text.toString()
+
+// Проверка уникальности email и name перед вставкой
+                if (!dbHelper.isEmailExists(emailText) && !dbHelper.isNameExists(nameText)) {
+                    val userId = dbHelper.insertUser(nameText, emailText, passwordText)
+
+                    if (userId != -1L && userId != -2L) {
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else if (userId == -1L) {
+                        Toast.makeText(this, "Ошибка: дублирование email", Toast.LENGTH_SHORT).show()
+                    } else if (userId == -2L) {
+                        Toast.makeText(this, "Ошибка: дублирование name", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Ошибка заполнения базы данных", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, "Ошибка заполнения базы данных: дублирование email или name", Toast.LENGTH_SHORT).show()
+                }
+
             } else {
                 Toast.makeText(this, "Неверный формат данных", Toast.LENGTH_SHORT).show()
             }

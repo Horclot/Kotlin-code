@@ -1,13 +1,14 @@
 package com.example.appgeniushub
 
+import DatabaseHelper
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +33,19 @@ class LoginActivity : AppCompatActivity() {
                         emailText.endsWith("@list.ru")
                         )
             ) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                val userPasswordToCheck = password.text.toString()
+
+                val dbHelper = DatabaseHelper(this)
+                val userExists = dbHelper.checkUser(emailText, userPasswordToCheck)
+
+                if (userExists) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Неверный email или пароль", Toast.LENGTH_SHORT).show()
+                }
+
             } else {
                 Toast.makeText(this, "Неверный формат данных", Toast.LENGTH_SHORT).show()
             }
