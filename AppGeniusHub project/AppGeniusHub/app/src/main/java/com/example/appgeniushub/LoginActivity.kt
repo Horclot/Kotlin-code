@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
 
                     // Передаем данные в MainActivity
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("userData", userData)
                     startActivity(intent)
                     finish()
                 } else {
