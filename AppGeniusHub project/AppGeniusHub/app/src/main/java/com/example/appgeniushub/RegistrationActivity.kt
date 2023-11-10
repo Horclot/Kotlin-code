@@ -1,5 +1,6 @@
 package com.example.appgeniushub
 
+import Data.UserData
 import DatabaseHelper
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +10,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-
-@Suppress("NAME_SHADOWING")
 class RegistrationActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -41,12 +41,16 @@ class RegistrationActivity : AppCompatActivity() {
                 val nameText = name.text.toString()
                 val passwordText = password.text.toString()
 
-// Проверка уникальности email и name перед вставкой
+                // Проверка уникальности email и name перед вставкой
                 if (!dbHelper.isEmailExists(emailText) && !dbHelper.isNameExists(nameText)) {
                     val userId = dbHelper.insertUser(nameText, emailText, passwordText)
-
+                    var id: Int = userId.toInt()
                     if (userId != -1L && userId != -2L) {
+
+                        val userData = UserData(nameText, emailText, passwordText, id)
+
                         val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra("userData", userData)
                         startActivity(intent)
                         finish()
                     } else if (userId == -1L) {

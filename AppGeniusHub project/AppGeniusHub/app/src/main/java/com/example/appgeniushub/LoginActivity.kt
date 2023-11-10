@@ -1,5 +1,6 @@
 package com.example.appgeniushub
 
+import Data.UserData
 import DatabaseHelper
 import android.content.Intent
 import android.os.Bundle
@@ -15,8 +16,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val button : Button = findViewById(R.id.buttonContinue)
-        val textButton : TextView = findViewById(R.id.loginText)
+        val button: Button = findViewById(R.id.buttonContinue)
+        val textButton: TextView = findViewById(R.id.loginText)
         val email: EditText = findViewById(R.id.LoginEmail)
         val password: EditText = findViewById(R.id.LoginPassword)
 
@@ -36,16 +37,24 @@ class LoginActivity : AppCompatActivity() {
                 val userPasswordToCheck = password.text.toString()
 
                 val dbHelper = DatabaseHelper(this)
-                val userExists = dbHelper.checkUser(emailText, userPasswordToCheck)
+                val userData = dbHelper.getUserData(emailText, userPasswordToCheck)
 
-                if (userExists) {
+                if (userData != null) {
+                    // Используем UserData.getInstance() для сохранения данных в классе UserData
+                    val userInstance = UserData.getInstance()
+                    userInstance.Uname = userData.Uname
+                    userInstance.Uemail = userData.Uemail
+                    userInstance.Upassword = userData.Upassword
+                    userInstance.Uid = userData.Uid
+
+                    // Передаем данные в MainActivity
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
+                    // Пользователь не найден
                     Toast.makeText(this, "Неверный email или пароль", Toast.LENGTH_SHORT).show()
                 }
-
             } else {
                 Toast.makeText(this, "Неверный формат данных", Toast.LENGTH_SHORT).show()
             }

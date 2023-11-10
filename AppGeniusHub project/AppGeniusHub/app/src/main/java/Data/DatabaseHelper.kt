@@ -1,3 +1,6 @@
+// DatabaseHelper.kt
+import Data.UserData
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -61,6 +64,40 @@ class DatabaseHelper(context: Context) :
         db.close()
 
         return cursorCount > 0
+    }
+
+    @SuppressLint("Range")
+    fun getUserData(email: String, password: String): UserData? {
+        val columns = arrayOf(COLUMN_ID, COLUMN_NAME, COLUMN_EMAIL, COLUMN_PASSWORD)
+        val db = this.readableDatabase
+        val selection = "$COLUMN_EMAIL = ? AND $COLUMN_PASSWORD = ?"
+        val selectionArgs = arrayOf(email, password)
+        val cursor: Cursor = db.query(
+            TABLE_USER,
+            columns,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+            val userEmail = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
+            val userPassword = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
+
+            cursor.close()
+            db.close()
+
+            return UserData(name, userEmail, userPassword, id)
+        }
+
+        cursor.close()
+        db.close()
+
+        return null
     }
 
     fun isEmailExists(email: String): Boolean {
