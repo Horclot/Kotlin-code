@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appgeniushub.ui.home.HomeFragment
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,14 +43,27 @@ class LoginActivity : AppCompatActivity() {
                 if (userData != null) {
                     // Используем UserData.getInstance() для сохранения данных в классе UserData
                     val userInstance = UserData.getInstance()
-                    userInstance.Uname = userData.Uname
-                    userInstance.Uemail = userData.Uemail
-                    userInstance.Upassword = userData.Upassword
-                    userInstance.Uid = userData.Uid
+                    userData.Uname.also { userInstance.Uname = it }
+                    userData.Uemail.also { userInstance.Uemail = it }
+                    userData.Upassword.also { userInstance.Upassword = it }
+                    userData.Uid.also { userInstance.Uid = it }
+                    val nameData: String = userData.Uname
+                    val emailData: String = userData.Uemail
+                    val passwordData:String = userData.Upassword
+                    val idData: Int = userData.Uid
+                    val bundle = Bundle().apply {
+                        putString("userName", nameData)
+                        putString("userEmail", emailData)
+                        putString("userPassword", passwordData)
+                        putInt("userId", idData)
+                    }
+
+                    val homeFragment = HomeFragment().apply {
+                        arguments = bundle
+                    }
 
                     // Передаем данные в MainActivity
                     val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("userData", userData)
                     startActivity(intent)
                     finish()
                 } else {
